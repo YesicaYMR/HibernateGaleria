@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29-ene-2024 10:07:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Obra" table="obra" catalog="galeriaarte" optimistic-lock="version">
+        <id name="idObras" type="int">
+            <column name="id_obras" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="autor" class="pojos.Autor" fetch="select">
+            <column name="id_autor" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="tipoArte" type="string">
+            <column name="tipo_arte" length="45" />
+        </property>
+        <property name="estado" type="byte">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="exposicions" table="exposicion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_obra" not-null="true" />
+            </key>
+            <one-to-many class="pojos.Exposicion" />
+        </set>
+    </class>
+</hibernate-mapping>
